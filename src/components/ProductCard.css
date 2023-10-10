@@ -1,0 +1,44 @@
+/* ProductCard.css */
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    /* Adds gap between cards */
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 300px;
+    transition: transform 0.2s ease-in-out;
+    /* Add a smooth hover effect */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    /* Slightly scale up on hover */
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    /* Text color */
+}
+
+.card-text {
+    font-size: 14px;
+    color: #666;
+    /* Text color */
+}
+
+/* Add a hover effect for the title */
+.card-title:hover {
+    color: #007bff;
+    /* Change text color on hover */
+}
