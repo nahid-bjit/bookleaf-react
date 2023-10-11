@@ -1,15 +1,16 @@
-// userLogin.page.jsx
-
 import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../store/slices/authSlice';
 import '../components/loginForm.css';
 import CustomPassword from "../components/customPassword.component";
-import axios from "axios";
+// import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'; // Import useHistory
+import Navbar from "../components/Navbar";
+import axiosInstance from "../utils/axiosInstance";
+
 
 const UserLoginPage = () => {
   const navigate = useNavigate(); // Initialize useHistory
@@ -32,7 +33,7 @@ const UserLoginPage = () => {
   const handleLogin = async (email, password) => {
     try {
       // Send a POST request to your backend for authentication
-      const response = await axios.post("http://localhost:8000/auth/login", {
+      const response = await axiosInstance.post(`/auth/login`, {
         email,
         password,
       });
@@ -63,55 +64,67 @@ const UserLoginPage = () => {
     handleLogin(email, password);
   };
 
+
+
+
   return (
-    <div className="form-parent">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit(handlerOnSubmit)}>
-        <div>
-          <h4>Email</h4>
-          <Controller
-            name="email"
-            control={control}
-            rules={{
-              required: "Email is required",
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "Invalid email address",
-              },
-            }}
-            render={({ field }) => (
-              <input placeholder="Enter email" {...field} />
-            )}
-          />
-        </div>
 
-        <div>
-          <h4>Password</h4>
-          <Controller
-            name="password"
-            control={control}
-            rules={{
-              required: "Password is required",
-              minLength: {
-                value: 6,
-                message: "Minimum length must be 6",
-              },
-              maxLength: {
-                value: 20,
-                message: "Max length must be 20",
-              },
-            }}
-            render={({ field }) => (
-              <CustomPassword fields={field} placeholder="Enter Password" />
-            )}
-          />
-          {errors.password && <h5>{errors.password.message}</h5>}
-        </div>
+    <div>
 
-        <button type="submit">Submit</button>
-      </form>
-      <ToastContainer />
+      <Navbar />
+
+      <div className="form-parent">
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit(handlerOnSubmit)}>
+          <div>
+            <h4>Email</h4>
+            <Controller
+              name="email"
+              control={control}
+              rules={{
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address",
+                },
+              }}
+              render={({ field }) => (
+                <input placeholder="Enter email" {...field} />
+              )}
+            />
+          </div>
+
+          <div>
+            <h4>Password</h4>
+            <Controller
+              name="password"
+              control={control}
+              rules={{
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Minimum length must be 6",
+                },
+                maxLength: {
+                  value: 20,
+                  message: "Max length must be 20",
+                },
+              }}
+              render={({ field }) => (
+                <CustomPassword fields={field} placeholder="Enter Password" />
+              )}
+            />
+            {errors.password && <h5>{errors.password.message}</h5>}
+          </div>
+
+          <button type="submit">Submit</button>
+        </form>
+        <ToastContainer />
+      </div>
+
     </div>
+
+
   );
 };
 

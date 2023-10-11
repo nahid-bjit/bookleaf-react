@@ -16,7 +16,7 @@ const useProductHook = () => {
         setLoading(true);
 
         try {
-            const response = await axiosInstance.get("/all"); // Use the Axios instance with the base URL
+            const response = await axiosInstance.get(`/books/all`); // Use the Axios instance with the base URL
             console.log("Data: ", response.data);
             setProductData(response.data.data.books);
             setLoading(false);
@@ -26,12 +26,49 @@ const useProductHook = () => {
         }
     };
 
+    // const getBookById = async (id) => {
+    //     setLoading(true);
+
+    //     try {
+    //         const response = await axiosInstance.get(`/detail/${_id}`); // Replace with your endpoint for fetching a single book
+    //         return response.data.data; // Assuming the response contains the book data
+    //     } catch (error) {
+    //         console.error("Error fetching book data:", error);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+    const getBookById = async (id) => {
+
+
+        try {
+            setLoading(true);
+            console.log("id: ", id)
+
+            const response = await axiosInstance.get(`/books/detail/${id}`); // Use the Axios instance with the base URL
+            console.log("Data: ", response.data);
+            setLoading(false);
+
+            if (response.data) {
+                return response.data; // Assuming the response contains the book data
+            } else {
+                console.error("Book not found");
+            }
+        } catch (error) {
+            console.error("Error fetching book data:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
     const createPost = (formData) => {
         setLoading(true);
         console.log("The form data ", formData);
 
         axiosInstance
-            .post("/add", formData) // Assuming "/add" is the endpoint for creating a post
+            .post("/books/add", formData) // Assuming "/add" is the endpoint for creating a post
             .then((resp) => resp.data)
             .then((data) => {
                 console.log("Successfully created", data);
@@ -43,10 +80,33 @@ const useProductHook = () => {
             .finally(() => setLoading(false));
     };
 
+    const updateBook = async (id, bookData) => {
+        setLoading(true);
+
+        try {
+            const response = await axiosInstance.patch(`/books/update/${id}`, bookData);
+            console.log("Updated Book Data: ", response.data);
+            // Optionally, you can update the productData with the new data if needed
+            // setProductData((prevData) => {
+            //   const updatedData = prevData.map((book) => {
+            //     if (book._id === id) {
+            //       return { ...book, ...bookData };
+            //     }
+            //     return book;
+            //   });
+            //   return updatedData;
+            // });
+        } catch (error) {
+            console.error("Error updating book:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     // const updatePost = (postId, formData) => {
     //     setLoading(true);
-    //     fetch(`http://localhost:8000/books/update/${productId}`, {
+    //     fetch(`http://localhost:8000/books/update/${id}`, {
     //         method: "PUT", // Use PUT for updates
     //         body: JSON.stringify(formData),
     //         headers: {
@@ -64,28 +124,24 @@ const useProductHook = () => {
     //         .finally(() => setLoading(false));
     // };
 
-    // const deletePost = (productId) => {
-    //     setLoading(true);
-    //     fetch(`http://localhost:8000/books/delete/${productId}`, {
-    //         method: "DELETE",
-    //     })
-    //         .then((resp) => {
-    //             if (!resp.ok) {
-    //                 throw new Error("Delete request failed");
-    //             }
-    //             return resp.json();
-    //         })
-    //         .then((data) => {
-    //             console.log("Successfully deleted", data);
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error deleting product:", error);
-    //         })
-    //         .finally(() => setLoading(false));
-    // };
-
-
-    return { productData, loading, setLoading, createPost };
+    const deleteBook = async (productId) => {
+        setLoading(true);
+        try {
+            // Make a DELETE request to the backend to delete the book by its ID
+            const response = await axiosInstance.delete(`/delete/${productId}`);
+            if (response.status === 200) {
+                // If the request is successful, update the product data
+                setProductData((prevData) => prevData.filter((book) => book._id !== productId));
+            } else {
+                console.error("Error deleting product:", response.data.message);
+            }
+        } catch (error) {
+            console.error("Error deleting product:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    return { productData, loading, setLoading, createPost, getBookById, updateBook, deleteBook };
 };
 
 export default useProductHook;

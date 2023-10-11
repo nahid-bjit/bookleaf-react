@@ -35,7 +35,7 @@ const PostDemo = () => {
                                 message: "Title must be at least 3 characters",
                             },
                             maxLength: {
-                                value: 15,
+                                value: 30,
                                 message: "Title cannot exceed 15 characters",
                             },
                         })}
@@ -55,7 +55,7 @@ const PostDemo = () => {
                                 message: "Description must be at least 5 characters",
                             },
                             maxLength: {
-                                value: 50,
+                                value: 100,
                                 message: "Description cannot exceed 50 characters",
                             },
                         })}

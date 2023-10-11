@@ -9,7 +9,7 @@ const DebounceDemo = () => {
 
   const callProductApi = () => {
     axiosInstance
-      .get(`/all/?search=${searchTerm}`)
+      .get(`/books/all/?search=${searchTerm}`)
       .then((resp) => resp.data)
       .then((data) => {
         //  console.log("Data: ", data);

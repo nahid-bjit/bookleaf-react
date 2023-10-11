@@ -1,21 +1,23 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function Authenticate() {
     const navigate = useNavigate();
-    const login = localStorage.getItem('login');
+    const user = useSelector((state) => state.auth.user);
+    const isAdmin = user && user.role === 1;
 
     useEffect(() => {
-        if (!login) {
-            navigate('/login');
+        if (!user) {
+            navigate('/user/login');
         }
-    }, [login, navigate]);
+    }, [user, navigate]);
 
-    return (
-        <div>
-            {login ? <Outlet /> : null}
-        </div>
-    );
+    if (isAdmin) {
+        return <Outlet />;
+    }
+
+    return <p>Unauthorized Access</p>;
 }
 
 export default Authenticate;

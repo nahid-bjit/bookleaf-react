@@ -50,10 +50,14 @@ import UserCreatePage from "./pages/userCreate.page";
 import UserLoginPage from "./pages/userLogin.page";
 import NotFoundPage from "./pages/notFound.page";
 import AddBooksPage from "./pages/addBooks.page";
+import EditBookPage from "./pages/editBooks.page";
+import DeleteBook from "./components/deleteBook";
+
 import Navbar from "./components/Navbar";
 //import { useDispatch, useSelector } from 'react-redux';
 // import { loginStart, logout } from './store/slices/authSlice';
 import Authenticate from "./components/Authenticate";
+
 
 function App() {
   // const user = useSelector((state) => state.auth.user);
@@ -84,9 +88,14 @@ function App() {
 
 
 
+
           <Route element={<Authenticate />} >
-            <Route path="/add" element={<AddBooksPage />} />
+            <Route path="/books/add" element={<AddBooksPage />} />
           </Route>
+
+          <Route path="/edit-book/:_id" element={<EditBookPage />} />
+          <Route path="/delete-book/:_id" element={<DeleteBook />} />
+
 
 
           <Route path="*" element={<NotFoundPage />} />

@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import './RegistrationForm.css';
 import CustomPassword from "./customPassword.component";
+import axiosInstance from "../utils/axiosInstance";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegistrationForm = () => {
     const {
@@ -21,21 +24,38 @@ const RegistrationForm = () => {
         },
     });
 
-    const handlerOnSubmit = () => {
-        console.log("Form is submitted ");
+    // const handlerOnSubmit = () => {
+    //     console.log("Form is submitted ");
 
-        const userData = {
-            userName: getValues("username"),
-            email: getValues("email"),
-            password: getValues("password"),
-        };
+    //     const userData = {
+    //         userName: getValues("username"),
+    //         email: getValues("email"),
+    //         password: getValues("password"),
+    //     };
 
-        const firstName = getValues("firstname");
-        const lastName = getValues("lastname");
+    //     const firstName = getValues("firstname");
+    //     const lastName = getValues("lastname");
 
-        setValue("fullname", `${firstName} ${lastName}`);
+    //     setValue("fullname", `${firstName} ${lastName}`);
 
-        console.log("The user data", userData);
+    //     console.log("The user data", userData);
+    // };
+    const handlerOnSubmit = async (data) => {
+        try {
+            console.log("signup data", data)
+            // Make an API request to your backend using axiosInstance
+            const response = await axiosInstance.post('/auth/sign-up', data);
+
+            if (response.status === 200) {
+                // Registration was successful
+                // You can redirect the user to a success page or perform other actions
+            } else {
+                // Handle registration errors here, such as displaying an error message
+            }
+        } catch (error) {
+            // Handle network errors or server errors
+            console.error("Error:", error);
+        }
     };
 
     useEffect(() => {
@@ -49,7 +69,7 @@ const RegistrationForm = () => {
                 <div>
                     <h4>Username</h4>
                     <Controller
-                        name="username"
+                        name="name"
                         control={control}
                         rules={{
                             required: "Username is required",
@@ -73,7 +93,7 @@ const RegistrationForm = () => {
                     {errors.username && <h5>{errors.username.message}</h5>}
                 </div>
 
-                <div>
+                {/* <div>
                     <h4>FirstName</h4>
                     <Controller
                         name="firstname"
@@ -90,9 +110,9 @@ const RegistrationForm = () => {
                         )}
                     />
                     {errors.firstname && <h5>{errors.firstname.message}</h5>}
-                </div>
+                </div> */}
 
-                <div>
+                {/* <div>
                     <h4>LastName</h4>
                     <Controller
                         name="lastname"
@@ -109,8 +129,8 @@ const RegistrationForm = () => {
                         )}
                     />
                     {errors.lastname && <h5>{errors.lastname.message}</h5>}
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                     <h4>FullName</h4>
                     <Controller
                         name="fullname"
@@ -124,7 +144,7 @@ const RegistrationForm = () => {
                         )}
                     />
                     {errors.fullname && <h5>{errors.lastname.fullname}</h5>}
-                </div>
+                </div> */}
                 <div>
                     <h4>Email</h4>
                     <Controller
@@ -208,8 +228,11 @@ const RegistrationForm = () => {
 
                 <button type="submit">Submit</button>
             </form>
+            <ToastContainer />
         </div>
     );
 };
 
 export default RegistrationForm;
+
+
