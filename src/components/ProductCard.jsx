@@ -3,27 +3,27 @@
 import React from "react";
 import "./ProductCard.css";
 import { useSelector, useDispatch } from 'react-redux';
-//import { editProduct, deleteProduct } from '../store/actions'; // Import your Redux actions
 import { useNavigate } from "react-router-dom";
-import DeleteBook from "./deleteBook";
+import AddToCartButton from "./AddToCartButton";
+import { addToCart } from '../store/cartActions'; // Import your cart action
 
 const ProductCard = ({ product }) => {
     const user = useSelector((state) => state.auth.user);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const dispatch = useDispatch(); // Get the dispatch function
 
     const handleEditClick = () => {
-        // console.log("id from productCard: ", product._id)
-        // Assuming you have the updated product data in 'updatedProduct'
         navigate(`/edit-book/${product._id}`);
     };
 
     const handleDeleteClick = () => {
-        // Pass the product ID to delete
-        // DeleteBook(product._id)
         navigate(`/delete-book/${product._id}`);
     };
 
+    const handleAddToCart = () => {
+        // Dispatch the addToCart action with the product
+        dispatch(addToCart(product));
+    };
 
     return (
         <div className="card">
@@ -36,7 +36,7 @@ const ProductCard = ({ product }) => {
                         <button onClick={handleDeleteClick}>Delete</button>
                     </>
                 ) : (
-                    <button>Add to Cart</button>
+                    <button onClick={handleAddToCart}>Add to Cart</button>
                 )}
             </div>
         </div>
@@ -44,4 +44,3 @@ const ProductCard = ({ product }) => {
 };
 
 export default ProductCard;
-

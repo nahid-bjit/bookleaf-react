@@ -32,17 +32,24 @@ const UserLoginPage = () => {
 
   const handleLogin = async (email, password) => {
     try {
+      console.log("response: ------------v", response.data)
       // Send a POST request to your backend for authentication
       const response = await axiosInstance.post(`/auth/login`, {
         email,
         password,
-      });
+      })
+
+
+      //   response.then(data => data.data).then(x => console.log('mkj ', x))
 
       if (response.status === 200) {
         // Authentication successful
         // You can perform actions such as storing tokens, updating Redux store, etc.
         console.log("Login successful");
         console.log(email, password);
+        //  console.log("response: ------------v", response)
+        localStorage.setItem("token", response.token)
+
         dispatch(loginUser({ email, password }));
         toast.success('Login successful', { position: toast.POSITION.TOP_RIGHT });
 
@@ -59,9 +66,12 @@ const UserLoginPage = () => {
   };
 
   const handlerOnSubmit = () => {
+
     const email = getValues("email");
     const password = getValues("password");
+    console.log("response: ------------v", email, password)
     handleLogin(email, password);
+    console.log("response: ------------v", email, password)
   };
 
 

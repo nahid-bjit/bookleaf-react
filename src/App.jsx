@@ -57,6 +57,9 @@ import Navbar from "./components/Navbar";
 //import { useDispatch, useSelector } from 'react-redux';
 // import { loginStart, logout } from './store/slices/authSlice';
 import Authenticate from "./components/Authenticate";
+import store from "./store/store";
+import { Provider } from 'react-redux'; // Make sure you import 'Provider' correctly
+
 
 
 function App() {
@@ -76,45 +79,35 @@ function App() {
   return (
     <div>
       {/* Your existing content */}
-      <BrowserRouter>
-        {/* <Navbar /> */}
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/homepage" element={<HomePage />} />
-          <Route path="/user/create" element={<UserCreatePage />} />
-          <Route path="/user/edit" element={<UserCreatePage />} />
-          <Route path="/user/login" element={<UserLoginPage />} />
+      <Provider store={store}>
+        <BrowserRouter>
+          {/* <Navbar /> */}
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/homepage" element={<HomePage />} />
+            <Route path="/user/create" element={<UserCreatePage />} />
+            <Route path="/user/edit" element={<UserCreatePage />} />
+            <Route path="/user/login" element={<UserLoginPage />} />
 
 
 
 
 
-          <Route element={<Authenticate />} >
-            <Route path="/books/add" element={<AddBooksPage />} />
-          </Route>
+            <Route element={<Authenticate />} >
+              <Route path="/books/add" element={<AddBooksPage />} />
+            </Route>
 
-          <Route path="/edit-book/:_id" element={<EditBookPage />} />
-          <Route path="/delete-book/:_id" element={<DeleteBook />} />
+            <Route path="/edit-book/:_id" element={<EditBookPage />} />
+            <Route path="/delete-book/:_id" element={<DeleteBook />} />
 
 
 
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
 
-      {/* Display user authentication status */}
-      {/* {user ? (
-        <div>
-          <h1>Welcome, {user.username}!</h1>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <div>
-          <h1>Please log in</h1>
-          <button onClick={handleLogin}>Login</button>
-        </div>
-      )} */}
-    </div>
+    </div >
   );
 }
 

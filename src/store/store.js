@@ -1,12 +1,13 @@
 // src/store.js
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
-import productReducer from './actions'; // Adjust the import path to match your project structure
+import { cartReducer } from './slices/cartSlice'; // Use curly braces for named exports
 
 const store = configureStore({
     reducer: {
-        auth: authReducer, // Your existing auth slice
-        products: productReducer, // Add the product-related reducer
+        auth: authReducer,
+        cart: cartReducer, // Use the named export
+        // Add other reducers as needed
     },
 });
 
