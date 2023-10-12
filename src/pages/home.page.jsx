@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux'; // Import useSelector
 export const ProductContext = createContext();
 
 const HomePage = () => {
+
+  console.log("came here after the successfull log in")
   const user = useSelector(state => state.auth.user); // Access user data from Redux store
 
   const [fetchReload, setFetchReload] = useState(false);
@@ -21,12 +23,14 @@ const HomePage = () => {
       <Navbar />
       <DebounceDemo />
 
-      {/* Display the user's name */}
-      {/* <h1>Welcome, {user?.name}!</h1> */}
-      {user ? <h1>Welcome, {user.role}!</h1> : <h1>Welcome!</h1>}
+      <p>before fetching data</p>
+      <script>
+        console.log("before fetching data")
+      </script>
 
       <ProductContext.Provider value={{ fetchReload, setFetchReload }}>
         <FetchDemo />
+        <p>after fetching data</p>
       </ProductContext.Provider>
     </div>
   );

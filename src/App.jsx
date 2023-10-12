@@ -59,7 +59,8 @@ import Navbar from "./components/Navbar";
 import Authenticate from "./components/Authenticate";
 import store from "./store/store";
 import { Provider } from 'react-redux'; // Make sure you import 'Provider' correctly
-
+import Cart from './components/Cart'; // Import the Cart component
+import CheckoutPage from "./components/CheckoutPage";
 
 
 function App() {
@@ -88,20 +89,13 @@ function App() {
             <Route path="/user/create" element={<UserCreatePage />} />
             <Route path="/user/edit" element={<UserCreatePage />} />
             <Route path="/user/login" element={<UserLoginPage />} />
-
-
-
-
-
             <Route element={<Authenticate />} >
               <Route path="/books/add" element={<AddBooksPage />} />
             </Route>
-
             <Route path="/edit-book/:_id" element={<EditBookPage />} />
             <Route path="/delete-book/:_id" element={<DeleteBook />} />
-
-
-
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>

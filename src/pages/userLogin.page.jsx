@@ -4,16 +4,15 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../store/slices/authSlice';
 import '../components/loginForm.css';
 import CustomPassword from "../components/customPassword.component";
-// import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom'; // Import useHistory
+import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar";
-import axiosInstance from "../utils/axiosInstance";
+import { axiosInstance } from "../utils/axiosInstance";
 
 
 const UserLoginPage = () => {
-  const navigate = useNavigate(); // Initialize useHistory
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -32,31 +31,23 @@ const UserLoginPage = () => {
 
   const handleLogin = async (email, password) => {
     try {
-      console.log("response: ------------v", response.data)
-      // Send a POST request to your backend for authentication
       const response = await axiosInstance.post(`/auth/login`, {
         email,
         password,
       })
 
 
-      //   response.then(data => data.data).then(x => console.log('mkj ', x))
 
       if (response.status === 200) {
-        // Authentication successful
-        // You can perform actions such as storing tokens, updating Redux store, etc.
-        console.log("Login successful");
-        console.log(email, password);
-        //  console.log("response: ------------v", response)
-        localStorage.setItem("token", response.token)
+
+        localStorage.setItem("token", response.data.data.token)
 
         dispatch(loginUser({ email, password }));
         toast.success('Login successful', { position: toast.POSITION.TOP_RIGHT });
 
         // Redirect to the homepage
-        navigate("/homepage"); // Use history for redirection
+        navigate("/homepage");
       } else {
-        // Authentication failed, handle error
         toast.error('Authentication failed. Please check your credentials.', { position: toast.POSITION.TOP_RIGHT });
       }
     } catch (error) {
@@ -69,9 +60,9 @@ const UserLoginPage = () => {
 
     const email = getValues("email");
     const password = getValues("password");
-    console.log("response: ------------v", email, password)
+
     handleLogin(email, password);
-    console.log("response: ------------v", email, password)
+
   };
 
 
@@ -82,7 +73,6 @@ const UserLoginPage = () => {
     <div>
 
       <Navbar />
-
       <div className="form-parent">
         <h1>Login</h1>
         <form onSubmit={handleSubmit(handlerOnSubmit)}>

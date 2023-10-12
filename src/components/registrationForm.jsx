@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import './RegistrationForm.css';
 import CustomPassword from "./customPassword.component";
-import axiosInstance from "../utils/axiosInstance";
+import { axiosInstance } from "../utils/axiosInstance";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

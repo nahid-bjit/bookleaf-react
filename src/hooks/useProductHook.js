@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import axiosInstance from "../utils/axiosInstance"; // Import your Axios instance
+import { axiosInstance } from "../utils/axiosInstance"; // Import your Axios instance
 // import { ProductContext } from "../App";
 
 const useProductHook = () => {
@@ -16,7 +16,7 @@ const useProductHook = () => {
         setLoading(true);
 
         try {
-            const response = await axiosInstance.get(`/books/all`); // Use the Axios instance with the base URL
+            const response = await axiosInstance.get("/books/all"); // Use the Axios instance with the base URL
             console.log("Data: ", response.data);
             setProductData(response.data.data.books);
             setLoading(false);
@@ -68,7 +68,7 @@ const useProductHook = () => {
         console.log("The form data ", formData);
 
         axiosInstance
-            .post("/books/add", formData) // Assuming "/add" is the endpoint for creating a post
+            .post(`/books/add`, formData) // Assuming "/add" is the endpoint for creating a post
             .then((resp) => resp.data)
             .then((data) => {
                 console.log("Successfully created", data);
@@ -128,7 +128,7 @@ const useProductHook = () => {
         setLoading(true);
         try {
             // Make a DELETE request to the backend to delete the book by its ID
-            const response = await axiosInstance.delete(`/delete/${productId}`);
+            const response = await axiosInstance.delete(`/books/delete/${productId}`);
             if (response.status === 200) {
                 // If the request is successful, update the product data
                 setProductData((prevData) => prevData.filter((book) => book._id !== productId));

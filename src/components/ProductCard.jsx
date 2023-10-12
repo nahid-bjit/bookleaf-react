@@ -6,23 +6,37 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import AddToCartButton from "./AddToCartButton";
 import { addToCart } from '../store/cartActions'; // Import your cart action
+import useProductHook from "../hooks/useProductHook";
 
 const ProductCard = ({ product }) => {
     const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
     const dispatch = useDispatch(); // Get the dispatch function
+    const { deleteBook } = useProductHook();
 
     const handleEditClick = () => {
         navigate(`/edit-book/${product._id}`);
     };
 
-    const handleDeleteClick = () => {
-        navigate(`/delete-book/${product._id}`);
+    const handleDeleteClick = async (bookId) => {
+        const confirm = window.confirm("Do you wanna delete this shit")
+        if (confirm) {
+            console.log("delete")
+            await deleteBook(bookId);
+        } else {
+            console.log("No", bookId)
+        }
+        // navigate(`/delete-book/${product._id}`);
     };
 
     const handleAddToCart = () => {
-        // Dispatch the addToCart action with the product
-        dispatch(addToCart(product));
+        if (user) {
+            // If the user is logged in, dispatch the addToCart action with the product
+            dispatch(addToCart(product));
+        } else {
+            // If the user is not logged in, redirect them to the login route
+            navigate('/user/login');
+        }
     };
 
     return (
@@ -33,7 +47,9 @@ const ProductCard = ({ product }) => {
                 {user && user.role === 1 ? (
                     <>
                         <button onClick={handleEditClick}>Edit</button>
-                        <button onClick={handleDeleteClick}>Delete</button>
+                        <button onClick={() => {
+                            handleDeleteClick(product._id)
+                        }}>Delete</button>
                     </>
                 ) : (
                     <button onClick={handleAddToCart}>Add to Cart</button>
