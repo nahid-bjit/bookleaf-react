@@ -5,8 +5,10 @@ import CustomPassword from "./customPassword.component";
 import { axiosInstance } from "../utils/axiosInstance";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
+    const navigate = useNavigate()
     const {
         handleSubmit,
         control,
@@ -47,10 +49,10 @@ const RegistrationForm = () => {
             const response = await axiosInstance.post('/auth/sign-up', data);
 
             if (response.status === 200) {
-                // Registration was successful
-                // You can redirect the user to a success page or perform other actions
+                toast.success('Registration successful!');
+                navigate('/user/login');
             } else {
-                // Handle registration errors here, such as displaying an error message
+                toast.error('Registration failed. Please check the form.');
             }
         } catch (error) {
             // Handle network errors or server errors
@@ -228,7 +230,7 @@ const RegistrationForm = () => {
 
                 <button type="submit">Submit</button>
             </form>
-            <ToastContainer />
+
         </div>
     );
 };

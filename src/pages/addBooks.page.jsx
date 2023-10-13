@@ -12,4 +12,3 @@ const AddBooksPage = () => {
 };
 
 export default AddBooksPage;
-

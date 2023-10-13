@@ -39,27 +39,40 @@ function Navbar() {
             <div className="container">
                 <h1>BookLeaf</h1>
                 <ul className="nav-menu">
-                    <Link to="/cart" onClick={handleFetchUserCart}>
-                        Cart ({cartItems.length})
-                    </Link>
+                    {user && (
+                        <li>
+                            <Link to="/cart" onClick={handleFetchUserCart}>
+                                <button>Cart ({cartItems.length})</button>
+                            </Link>
+                        </li>
+                    )}
+
+
                     <li>
-                        <Link to="/homepage">Home</Link>
+                        <Link to="/homepage">
+                            <button>Home</button>
+                        </Link>
                     </li>
                     {user && user.role === 1 && ( // Check if the user is admin
                         <li>
-                            <Link to="/books/add">Add Books</Link>
+                            <Link to="/books/add">
+                                <button>Add Books</button>
+                            </Link>
                         </li>
                     )}
 
                     {!user && ( // Check if the user is admin
                         <li>
-                            <Link to="/user/create">Sign-up</Link>
+                            <Link to="/user/create">
+                                <button>Sign-up</button>
+                            </Link>
                         </li>
+
                     )}
 
                     {user ? (
                         <li>
-                            <h1>Welcome, {user.email}!</h1>
+                            <h1>Welcome, {user.email.split('@')[0]}!</h1>
                             <button onClick={handleLogout}>Logout</button>
                         </li>
                     ) : (

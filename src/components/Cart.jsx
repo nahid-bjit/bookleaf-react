@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cartCheckout } from '../store/cartActions';
 import { emptyCart } from '../store/slices/cartSlice';
+import Navbar from './Navbar';
 
 
 function Cart() {
@@ -13,7 +14,7 @@ function Cart() {
     const checkout = async () => {
         if (cartItems.length > 0) {
             const response = await cartCheckout(cartId)
-            if (response.data.success) {
+            if (response?.data?.success) {
                 dispatch(emptyCart())
                 navigate("/checkout")
             } else {
@@ -25,10 +26,9 @@ function Cart() {
 
     }
 
-
-
     return (
         <div>
+            <Navbar />
             <h2>Cart</h2>
 
 

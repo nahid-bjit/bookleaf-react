@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUserTransection } from '../store/cartActions';
+import Navbar from './Navbar';
 
 export default function CheckoutPage() {
     const [transData, setTransData] = useState([]);
@@ -20,6 +21,7 @@ export default function CheckoutPage() {
 
     return (
         <div>
+            <Navbar />
             <h1>Your Last Transection</h1>
             {transData.length > 0 && <p><p>User: {transData[transData.length - 1].user}</p>
                 <p>Total: {transData[transData.length - 1].total}</p>

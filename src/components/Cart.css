@@ -1,0 +1,38 @@
+/* Styling for the card container */
+.card-container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Style for the "Cart" heading */
+.cart-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Style for the "Checkout" button */
+.checkout-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Style for the list */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Style for list items */
+li {
+    margin: 5px 0;
+}

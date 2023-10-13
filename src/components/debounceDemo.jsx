@@ -8,20 +8,22 @@ const DebounceDemo = () => {
   const [productData, setProductData] = useState([]);
 
   const callProductApi = () => {
-    axiosInstance
-      .get(`/books/all/?search=${searchTerm}`)
-      .then((resp) => resp.data)
-      .then((data) => {
-        //  console.log("Data: ", data);
-        //  console.log("Data books: ", data.data.books);
-        setProductData(data.data.books);
-        return data;
-      })
-      .catch((err) => {
-        setErrorMsg("Some error occurred");
-        return "Some error";
-      })
-      .finally(() => { });
+    if (searchTerm) {
+      axiosInstance
+        .get(`/books/all/?search=${searchTerm}`)
+        .then((resp) => resp.data)
+        .then((data) => {
+          setProductData(data.data.books);
+          return data;
+        })
+        .catch((err) => {
+          setErrorMsg("Some error occurred");
+          return "Some error";
+        })
+        .finally(() => { });
+    } else {
+      setProductData([]);
+    }
   };
 
   useEffect(() => {
@@ -29,20 +31,18 @@ const DebounceDemo = () => {
 
     const timeOutFunc = setTimeout(() => {
       callProductApi();
-    }, 0);
+    }, 2000);
 
     return () => clearTimeout(timeOutFunc);
   }, [searchTerm]);
 
   return (
     <div>
-      <h1>Search for books</h1>
       <input
         placeholder="Search for books"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-      <h4>Fetched Books:</h4>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
         {productData.map((product, index) => (
           <ProductCard key={index} product={product} />
@@ -54,3 +54,4 @@ const DebounceDemo = () => {
 };
 
 export default DebounceDemo;
+

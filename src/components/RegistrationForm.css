@@ -1,8 +1,6 @@
-/* RegistrationForm.css */
-
 .form-parent {
     max-width: 400px;
-    margin: 0 auto;
+    margin: 75px auto;
     padding: 20px;
     background-color: #f5f5f5;
     border: 1px solid #ccc;

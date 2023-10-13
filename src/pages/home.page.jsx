@@ -3,14 +3,15 @@ import Navbar from "../components/Navbar";
 import PostDemo from "../components/postDemo";
 import FetchDemo from "../components/fetchDemo";
 import DebounceDemo from "../components/debounceDemo";
-import { useSelector } from 'react-redux'; // Import useSelector
+import { useSelector } from 'react-redux';
+import Banner from "../components/banner";
 
 export const ProductContext = createContext();
 
 const HomePage = () => {
 
   console.log("came here after the successfull log in")
-  const user = useSelector(state => state.auth.user); // Access user data from Redux store
+  const user = useSelector(state => state.auth.user);
 
   const [fetchReload, setFetchReload] = useState(false);
 
@@ -22,15 +23,10 @@ const HomePage = () => {
     <div>
       <Navbar />
       <DebounceDemo />
-
-      <p>before fetching data</p>
-      <script>
-        console.log("before fetching data")
-      </script>
+      <Banner />
 
       <ProductContext.Provider value={{ fetchReload, setFetchReload }}>
         <FetchDemo />
-        <p>after fetching data</p>
       </ProductContext.Provider>
     </div>
   );

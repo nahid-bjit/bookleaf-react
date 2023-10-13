@@ -65,9 +65,6 @@ const UserLoginPage = () => {
 
   };
 
-
-
-
   return (
 
     <div>
@@ -119,7 +116,7 @@ const UserLoginPage = () => {
 
           <button type="submit">Submit</button>
         </form>
-        <ToastContainer />
+
       </div>
 
     </div>
