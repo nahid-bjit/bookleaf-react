@@ -115,6 +115,8 @@ const UserLoginPage = () => {
           </div>
 
           <button type="submit">Submit</button>
+
+          <a href="/forgot-password">Forgotten Password</a>
         </form>
 
       </div>

@@ -14,7 +14,8 @@ import { Provider } from 'react-redux'; // Make sure you import 'Provider' corre
 import Cart from './components/Cart'; // Import the Cart component
 import CheckoutPage from "./components/CheckoutPage";
 import Footer from "./components/footer";
-
+import ForgotPassword from "./pages/ForgotPassword.page"
+import ResetPassword from "./pages/ResetPassword.page"
 
 function App() {
 
@@ -36,6 +37,8 @@ function App() {
             <Route path="/delete-book/:_id" element={<DeleteBook />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token/:userId" element={<ResetPassword />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
