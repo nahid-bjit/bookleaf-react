@@ -5,7 +5,7 @@ import { axiosInstance } from "../utils/axiosInstance"; // Import your Axios ins
 const useProductHook = () => {
     const [productData, setProductData] = useState([]);
     const [loading, setLoading] = useState(false);
-    // const { fetchReload, setFetchReload } = useContext(ProductContext);
+    //const { fetchReload, setFetchReload } = useContext(ProductContext);
 
     useEffect(() => {
         fetchData();
@@ -72,7 +72,7 @@ const useProductHook = () => {
             .then((resp) => resp.data)
             .then((data) => {
                 console.log("Successfully created", data);
-                setFetchReload(true);
+                //setFetchReload(true);
             })
             .catch((error) => {
                 console.error("Error creating post:", error);

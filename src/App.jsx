@@ -14,8 +14,8 @@ import { Provider } from 'react-redux'; // Make sure you import 'Provider' corre
 import Cart from './components/Cart'; // Import the Cart component
 import CheckoutPage from "./components/CheckoutPage";
 import Footer from "./components/footer";
-import ForgotPassword from "./pages/ForgotPassword.page"
-import ResetPassword from "./pages/ResetPassword.page"
+import ForgotPassword from "./pages/ForgotPassword.page";
+import ResetPassword from "./pages/ResetPassword.page";
 
 function App() {
 

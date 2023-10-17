@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useProductHook from "../hooks/useProductHook";
 import "./postDemo.css"; // Import the CSS file
+import FileUpload from "./FileUpload";
 
 
 const PostDemo = () => {
@@ -64,6 +65,8 @@ const PostDemo = () => {
                         {errors.description && <p style={{ color: "red" }}>{errors.description.message}</p>}
                     </p>
                 </div>
+
+                <FileUpload />
                 <button type="submit">Create Post</button>
             </form>
         </div>
