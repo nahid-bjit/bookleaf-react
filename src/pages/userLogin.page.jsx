@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../store/slices/authSlice';
-import '../components/loginForm.css';
+import '../components/LoginForm.css';
 import CustomPassword from "../components/customPassword.component";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
